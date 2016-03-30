@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>date3</title>
+	<link rel="stylesheet" href="css/date3.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<script src="js/jquery.min.js"></script>
+<body>
+	<div class="container">
+		<div class="left">
+			<div class="header">
+				<i class="icon-angle-left" id="prev"></i>
+				<h2 class="header-title">March</h2>
+				<i class="icon-angle-right" id="next"></i>
+			</div>
+			<ul class="week-title">
+				<li>Sun</li>
+				<li>Mon</li>
+				<li>Tue</li>
+				<li>Wed</li>
+				<li>Thu</li>
+				<li>Fri</li>
+				<li>Sat</li>				
+			</ul>
+			<div class="days">
+				<ul class="dates"></ul>
+			</div>
+		</div>
+		<div class="right">
+			<ul class="list"></ul>
+			<div class="put">
+				<input type="text" placeholder="Enter a task for this day" value="" id="txtInput">
+				<select name="thingstype" id="thingstype">
+					<option value="Social">Social</option>
+					<option value="Work">Work</option>
+				</select>
+			</div>
+		</div>
+	</div>
+<script src="js/date.js"></script>
+</head>
+</body>
+</html>
