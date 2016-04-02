@@ -107,6 +107,7 @@ html,body{
   bottom: 20px;
   left: 50px;
   overflow: hidden;
+  display: none;
 }
  
 .spinner > div {
