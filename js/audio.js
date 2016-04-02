@@ -1,6 +1,4 @@
-
 var timer;
-
 var audio = {
 /* 
 	获取MP3播放列表，歌词列表，歌手信息
@@ -42,6 +40,9 @@ var audio = {
 			var _timeSec = parseInt(_time%60)>10?parseInt(_time%60):"0"+parseInt(_time%60);
 			var _stringTime = "-"+_timeMin+":"+_timeSec;
 			var t = $("#countdown").attr("time");
+			var w = 0;
+			var m =Math.floor( t /60);
+			var s = Math.floor(t%60);
 			if(t==0){
 				$("#time_ring").width(0);
 				$("#countdown").attr("time",_time);
@@ -51,10 +52,8 @@ var audio = {
 				$("#play").removeClass("icon-pause").addClass("icon-play");
 				$(".disc").css({"animation-play-state":"paused"});
 				return false;
-			}
-			var w = 0;
-			var m =Math.floor( t /60);
-			var s = Math.floor(t%60);
+			}			
+
 			t = t - 1;
 			w = ((_time-t)/_time).toFixed(3)*350;
 			if(s<10){s="0"+s;};
@@ -105,6 +104,7 @@ var audio = {
 		$(".music-info").html(audio.music_list[_nextMusicId].name);
 		audio.togglePlay();
 	},
+	/* 喜欢 */
 	likes:function(){
 		if($("#likes").hasClass("like")){
 			$("#likes").attr("class","nomal icon-heart-empty");
@@ -112,6 +112,7 @@ var audio = {
 			$("#likes").attr("class","nomal icon-heart like");
 		}
 	},
+	/* 选择一首播放	*/
 	choice:function(id){
 		var _this = document.getElementById('audio');
 		 id = id > audio.music_list.length-1? 0 :id;
@@ -124,6 +125,8 @@ var audio = {
 		$(".music-info").html(audio.music_list[id].name);
 		audio.togglePlay();
 	},
+
+	/* 获取音频列表*/
 	getList:function(){
 		var music_list_str='<li class="nomal close icon-double-angle-left"></li>';
 		for(var i=0; i<audio.music_list.length;i++){
@@ -132,7 +135,20 @@ var audio = {
 			music_list_str += list_str;
 		}
 		$(".list").html(music_list_str);
-		console.log("a");
+	},
+	/*加载中*/
+	onProcess:function(){
+		$("#load").css({"display":"block"})
+	},
+	/* 暂停待播放中 */
+	onCanPlay:function(){
+		$("#load").css({"display":"none"});
+		clearInterval(timer);
+	},
+	onWaiting:function(){
+		
+		$("#load").css({"display":"block"});
+		timer = setInterval(audio.count,1000);
 	}
 
 }

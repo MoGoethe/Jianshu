@@ -18,11 +18,16 @@
 					<div class="cd2"></div>
 				</div>
 			</div>
+			<div class="spinner" id="load">
+			  <div class="bounce1"></div>
+			  <div class="bounce2"></div>
+			  <div class="bounce3"></div>
+			</div>
 		</div>
 		<div class="action">
 			<h5 id="countdown" time="205">-00:00</h5>
 			<input type="hidden" value="0" id="musicid">
-			<audio src="./music/1.mp3" id="audio" controls></audio>
+			<audio src="./music/1.mp3" id="audio" controls="controls" preload="auto" onwaiting="audio.onWaiting()" oncanplay="audio.onCanPlay()" onprogress="audio.onProcess()"></audio>
 			<span class="time"> <i id="time_ring"></i>
 			</span>
 			<ul class="action_button">
