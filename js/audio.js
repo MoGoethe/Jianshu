@@ -142,13 +142,15 @@ var audio = {
 	},
 	/* 暂停待播放中 */
 	onCanPlay:function(){
+		console.log("可以播放");
 		$("#load").css({"display":"none"});
-		clearInterval(timer);
+		timer = setInterval(audio.count,1000);
 	},
 	onWaiting:function(){
-		
+		console.log("正在等待");
 		$("#load").css({"display":"block"});
-		timer = setInterval(audio.count,1000);
+		clearInterval(timer);
+		
 	}
 
 }
