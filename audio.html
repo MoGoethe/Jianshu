@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>saeseeYoul-Audio</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/audio.css">
+</head>
+<body>
+	<div class="container">
+		<div class="info">
+			<span class="icon-music tit"></span>
+			<h3 class="singer">tara</h3>
+			<h4 class="music-info">LoveyDovey</h4>
+			<div class="disc">
+				<h4 class="sign">seaseeYoul.</h4>
+				<div class="cd1"><div class="cd2"></div></div>
+			</div>
+		</div>
+		<div class="action">
+			<h5 id="countdown" time="189">-03:09</h5>
+			<audio src="./music/everytime.mp3" id="audio" controls></audio>
+			<span class="time"><i id="time_ring"></i></span>
+			<ul class="action_button">
+				<li class="large icon-backward"></li>
+				<li class="large icon-play" id="play"></li>
+				<li class="large icon-forward"></li>							
+				<li class="nomal icon-volume-up" id="mute"></li>
+				<li class="nomal icon-heart-empty"></li>
+				<li class="nomal icon-reorder"></li>
+			</ul>
+		</div>
+	</div>
+<script src="js/jquery.min.js"></script>
+<script>
+	audio = document.getElementById('audio');
+	$("#play").click(function(){
+		if($(this).hasClass("icon-play")){
+			$(this).removeClass("icon-play").addClass("icon-pause");
+			$(".disc").css({"animation-play-state":"running"});
+	     		audio.play();
+	     		timer = setInterval("countdown()",1000);
+		}else{
+			$(this).removeClass("icon-pause").addClass("icon-play");
+			audio.pause();
+			clearInterval(timer);
+			$(".disc").css({"animation-play-state":"paused"});
+		}
+	});
+
+	$("#mute").click(function(){
+		if($(this).hasClass("active")){
+			$(this).removeClass("active");
+			audio.muted = false; //开启静音
+		}else{
+			$(this).addClass("active");
+			audio.muted = true;
+		}
+	})
+
+	function countdown(){
+		var t = $("#countdown").attr("time");
+		if(t==0){
+			$("#time_ring").width(0);
+			$("#countdown").attr("time",189);
+			$("#countdown").html("-03:09");
+			$(".disc").removeClass("start");
+			clearInterval(timer);
+			$("#play").removeClass("icon-pause").addClass("icon-play");
+			$(".music").removeClass("active");
+			return false;
+		}
+		var w = 0;
+		var m =Math.floor( t /60);
+		var s = Math.floor(t%60);
+		t = t - 1;
+		w = ((189-t)/189).toFixed(3)*350;
+		if(s<10){s="0"+s;};
+		$("#time_ring").width(w);
+		$("#countdown").attr("time",t);
+		$("#countdown").html("-0"+m+"."+s);
+	}
+</script>
+</body>
+</html>

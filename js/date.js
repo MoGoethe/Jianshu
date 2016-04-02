@@ -7,7 +7,8 @@ var calendar = {
         var D = new Date();
         D.setMonth(M + 1);
         D.setDate(0);
-        return D.getDate()
+
+        return D.getDate(2016,M,0)
     },
     getMonthOne: function(M) {
         var D = new Date();
@@ -18,6 +19,7 @@ var calendar = {
         var D = new Date();
         calendar.nowMonth = D.getMonth();
         calendar.nowYear = D.getFullYear();
+
         calendar.nowDate = D.getDate();
         calendar.thisMonth = calendar.nowMonth;
         calendar.todayDate = String(calendar.nowYear) + String(calendar.nowMonth)+String(calendar.nowDate);
@@ -49,7 +51,8 @@ var calendar = {
     },
     initHtml: function() {
         var Da = new Date();
-        var dates = calendar.getDates(calendar.nowMonth);
+        var days = new Date(2016,calendar.nowMonth+1,0)
+        var dates = days.getDate();
         var day = calendar.getMonthOne(calendar.nowMonth);
         var _id = '';
         var zHtml = "";
@@ -75,15 +78,9 @@ var calendar = {
         }
 
         $(".dates").html(zHtml);
-
+        console.log(calendar.nowDate);
         if(calendar.nowMonth == calendar.thisMonth){
-            $(".dates li").eq(calendar.nowDate+1).addClass("active");
-        }
-
-        if (dL != zLeng) {
-            for (k = 0; k < (zLeng - dL); k++) {
-                $(".dates").append("<li></li>");
-            }
+            $(".dates li").not(":empty").eq(calendar.nowDate-1).addClass("active");
         }
         calendar.showOrHide(calendar.todayDate);
     },
