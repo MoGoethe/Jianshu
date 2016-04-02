@@ -144,13 +144,14 @@ var audio = {
 	onCanPlay:function(){
 		console.log("可以播放");
 		$("#load").css({"display":"none"});
-		timer = setInterval(audio.count,1000);
+		clearInterval(timer);
+		
 	},
 	onWaiting:function(){
 		console.log("正在等待");
 		$("#load").css({"display":"block"});
-		clearInterval(timer);
 		
+		timer = setInterval(audio.count,1000);
 	}
 
 }
