@@ -29,6 +29,7 @@ var audio = {
 			clearInterval(timer);
 			$(".disc").css({"animation-play-state":"paused"});
 		}
+		audio._likes();
 	},
 /*
 	计时器，进度条
@@ -106,10 +107,21 @@ var audio = {
 	},
 	/* 喜欢 */
 	likes:function(){
+		var _thisMusicId = $("#musicid").val();
 		if($("#likes").hasClass("like")){
 			$("#likes").attr("class","nomal icon-heart-empty");
+			$(".list li").eq(_thisMusicId).attr("like","");
 		}else{
 			$("#likes").attr("class","nomal icon-heart like");
+			$(".list li").eq(_thisMusicId).attr("like","like");
+		}
+	},
+	_likes:function(){
+		var _thisMusicId = $("#musicid").val();
+		if($(".list li").eq(_thisMusicId).attr("like") =="like"){
+			$("#likes").attr("class","nomal icon-heart like");
+		}else{
+			$("#likes").attr("class","nomal icon-heart-empty");
 		}
 	},
 	/* 选择一首播放	*/
@@ -128,12 +140,13 @@ var audio = {
 
 	/* 获取音频列表*/
 	getList:function(){
-		var music_list_str='<li class="nomal close icon-double-angle-left"></li>';
+		var music_list_str='';
 		for(var i=0; i<audio.music_list.length;i++){
 			var list_str;
-			list_str ="<li onclick=audio.choice("+i+")>"+audio.music_list[i].name+"<span>"+audio.music_list[i].singer+"</span></li>";
+			list_str ="<li onclick=audio.choice("+i+") like=\"\">"+audio.music_list[i].name+"<span>"+audio.music_list[i].singer+"</span></li>";
 			music_list_str += list_str;
 		}
+		music_list_str +='<li class="nomal close icon-double-angle-left"></li>';
 		$(".list").html(music_list_str);
 	},
 	/*加载中*/
@@ -165,8 +178,10 @@ $("#prev").click(function(){audio.prev()});
 $("#likes").click(function(){audio.likes()});
 $("#menu").click(function(){
 	$(".list").toggleClass("active");
+	$(".container").toggleClass("open");
 });
 $(".close").click(function(){
 	$(".list").removeClass("active");
+	$(".container").removeClass("open");
 })
 
