@@ -1,0 +1,25 @@
+.clockline li {
+    width: 1px;
+    height: 20px;
+    border-radius: 2px;
+    background: #f8f8f8;
+    position: absolute;
+    left: 160px;
+    top: 160px;
+    //Half size of a circle
+    $r: 112; //224px cirlcle
+    @for $i from 1 through 100 {
+        //What I want to repeat
+        &:nth-child(#{$i}) {
+            $angle: 450 + (360 / 100) * $i;
+            $radian: (360 / 100)*(pi()/180) * $i;
+            $x: $r * cos($radian) + px;
+            $y: $r * sin($radian) + px;
+            transform-origin: 100% 0%;
+            transform: translate($x, $y) rotate( $angle + deg);
+            @if ($i % 5)==0 {
+                height: 32px;
+            }
+        }
+    }
+}

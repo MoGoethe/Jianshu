@@ -1,0 +1,226 @@
+
+$boxWidth: 50;
+html,
+body {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(50% 16%, circle, #219eb0 32%, #3f679d 88%);
+}
+
+.wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.container {
+    width: 320px;
+    height: 320px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to bottom, #0c3d69 16%, #116c97 95%);
+    box-shadow: 0 4px 36px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.icons {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    text-align: center;
+    cursor: pointer;
+    top: 4px;
+    left: 8px;
+    .stop-watch {
+        display: block;
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        margin: -10px auto 0;
+        border: 2px solid #f8f8f8;
+        border-radius: 24px;
+        //margin:4px auto;
+        &::before {
+            content: "";
+            display: block;
+            width: 10px;
+            height: 2px;
+            background: #f8f8f8;
+            position: absolute;
+            top: -6px;
+            right: 0;
+            left: 0;
+            margin: 0 auto;
+            transform: top 0.2s;
+        }
+        &::after {
+            content: "";
+            display: block;
+            width: 2px;
+            height: 4px;
+            background: #f8f8f8;
+            position: absolute;
+            top: -3px;
+            right: -3px;
+            transform: rotate(45deg);
+        }
+        &.sw-click::before {
+            top: -3px;
+        }
+        .sw-parts {
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: 4px;
+            height: 4px;
+            border-radius: 4px;
+            background: #F8f8f8;
+            .sw-parts2 {
+                display: block;
+                width: 2px;
+                height: 9px;
+                background: #f8f8f8;
+                position: absolute;
+                top: 2px;
+                left: 1px;
+            }
+            #icn-clock-line {
+                transform-origin: 50% 0;
+                transform: rotate(180deg);
+                transition: transform 0.5s;
+            }
+        }
+    }
+    .label {
+        color: #FFF;
+        text-align: center;
+        position: absolute;
+        bottom: -1rem;
+        left: 0;
+        right: 0;
+        margin: auto;
+        font-size: 0.75rem;
+        font-family: 'Share Tech Mono', sans-serif;
+    }
+}
+
+.clock {
+    p {
+        position: absolute;
+        color: #FFF;
+        text-align: center;
+        top: 144px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        font-family: 'Share Tech Mono', sans-serif;
+        font-size: 2rem;
+        font-weight: 300;
+    }
+}
+
+.clockline li {
+    width: 1px;
+    height: 20px;
+    border-radius: 2px;
+    background: #f8f8f8;
+    position: absolute;
+    left: 160px;
+    top: 160px;
+    //Half size of a circle
+    $r: 112; //224px cirlcle
+    @for $i from 1 through 100 {
+        //What I want to repeat
+        &:nth-child(#{$i}) {
+            $angle: 450 + (360 / 100) * $i;
+            $radian: (360 / 100)*(pi()/180) * $i;
+            $x: $r * cos($radian) + px;
+            $y: $r * sin($radian) + px;
+            transform-origin: 100% 0%;
+            transform: translate($x, $y) rotate( $angle + deg);
+            @if ($i % 5)==0 {
+                height: 32px;
+            }
+        }
+    }
+}
+
+.btn {
+    cursor: pointer;
+}
+
+.btn-reset {
+    //shape
+    width: 48px;
+    height: 48px;
+    //border:1px solid #f8f8f8;
+    //border-radius:48px;
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    box-sizing: border-box;
+    //padding:10px;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+    .bl-parts {
+        display: block;
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        border-top: 2px solid #f8f8f8;
+        border-right: 2px solid transparent;
+        border-left: 2px solid transparent;
+        border-radius: 50%;
+        transform: rotate(45deg);
+        top: 10px;
+        left: 10px;
+        transition: transform 0s;
+        &::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-right: 8px solid #f8f8f8;
+            border-left: 8px solid transparent;
+            position: absolute;
+            top: 2px;
+            // transform:rotate(-1deg);
+            left: 8px;
+            top: -2px;
+        }
+    }
+    .bl-parts:nth-child(2) {
+        transform: rotate(225deg);
+    }
+    &.br-click {
+        .bl-parts {
+            transform: rotate(405deg);
+        }
+        .bl-parts:nth-child(2) {
+            transform: rotate(585deg);
+        }
+    }
+}
+
+.btn-label {
+    width: 100%;
+    color: #FFF;
+    text-align: center;
+    position: absolute;
+    bottom: -1rem;
+    font-size: 0.75rem;
+    font-family: 'Share Tech Mono', sans-serif;
+}

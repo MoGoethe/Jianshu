@@ -4,6 +4,7 @@ var audio = {
 	获取MP3播放列表，歌词列表，歌手信息
 */
 	music_list:[
+		{"address":"7.mp3","lrc":"7.lrc","singer":"杨宗纬","name":"一场恋爱","time":"189"},
 		{"address":"1.mp3","lrc":"1.lrc","singer":"纯音乐","name":"Always(Inst)","time":"205"},
 		{"address":"2.mp3","lrc":"2.lrc","singer":"T[伊莱美]","name":"Always","time":"205"},
 		{"address":"3.mp3","lrc":"3.lrc","singer":"CHEN[EXO] & Punch","name":"Everytime","time":"189"},
@@ -15,22 +16,22 @@ var audio = {
 /*
 	播放与暂停
 */
-	togglePlay: function(){
-		var _this = document.getElementById('audio');
+togglePlay: function(){
+	var _this = document.getElementById('audio');
+	clearInterval(timer);
+	if($("#play").hasClass("icon-play")){
+		$("#play").removeClass("icon-play").addClass("icon-pause");
+		$(".disc").css({"animation-play-state":"running"});
+     	_this.play();
+     	timer = setInterval(audio.count,1000);
+	}else{
+		$("#play").removeClass("icon-pause").addClass("icon-play");
+		_this.pause();
 		clearInterval(timer);
-		if($("#play").hasClass("icon-play")){
-			$("#play").removeClass("icon-play").addClass("icon-pause");
-			$(".disc").css({"animation-play-state":"running"});
-	     	_this.play();
-	     	timer = setInterval(audio.count,1000);
-		}else{
-			$("#play").removeClass("icon-pause").addClass("icon-play");
-			_this.pause();
-			clearInterval(timer);
-			$(".disc").css({"animation-play-state":"paused"});
-		}
-		audio._likes();
-	},
+		$(".disc").css({"animation-play-state":"paused"});
+	}
+	audio._likes();
+},
 /*
 	计时器，进度条
 */
